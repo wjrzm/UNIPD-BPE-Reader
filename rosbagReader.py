@@ -38,7 +38,7 @@ def readKinectPos(bag_file):
     """
     bag = rosbag.Bag(bag_file, "r")
     bag_data = bag.read_messages('/k01/body_tracking_data')
-    with open(bag_file.split('.')[0]+'KinectPos.csv', mode='w') as data_file:
+    with open(bag_file.split('.')[0]+'KinectPos.csv', mode='w',newline='') as data_file:
         data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         KinectJointName = ['Pelvis','SpineNaval','SpineChest','Neck',
                            'ClavicleLeft','ShoulderLeft','ElbowLeft','WristLeft','HandLeft','HandTipLeft','ThumbLeft',
@@ -59,7 +59,7 @@ def readKinectPos(bag_file):
             
             m = msg.markers
             if m != []:
-                row = [m[0].header.stamp.secs*1000000000 + m[0].header.stamp.nsecs]
+                row = [round((m[0].header.stamp.secs*1000000000 + m[0].header.stamp.nsecs)/1000000)]
                 for i in range(32):
                     row.append(m[i].pose.position.x)
                     row.append(m[i].pose.position.y)
@@ -87,7 +87,7 @@ def readKinectQuat(bag_file):
     """
     bag = rosbag.Bag(bag_file, "r")
     bag_data = bag.read_messages('/k01/body_tracking_data')
-    with open(bag_file.split('.')[0]+'KinectQuat.csv', mode='w') as data_file:
+    with open(bag_file.split('.')[0]+'KinectQuat.csv', mode='w',newline='') as data_file:
         data_writer = csv.writer(data_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         KinectJointName = ['Pelvis','SpineNaval','SpineChest','Neck',
                            'ClavicleLeft','ShoulderLeft','ElbowLeft','WristLeft','HandLeft','HandTipLeft','ThumbLeft',
@@ -109,7 +109,7 @@ def readKinectQuat(bag_file):
             
             m = msg.markers
             if m != []:
-                row = [m[0].header.stamp.secs*1000000000 + m[0].header.stamp.nsecs]
+                row = [round((m[0].header.stamp.secs*1000000000 + m[0].header.stamp.nsecs)/1000000)]
                 for i in range(32):
                     row.append(m[i].pose.orientation.x)
                     row.append(m[i].pose.orientation.y)
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     logset()
     bag_file = 'sbj01_bend1.bag'
     
-    # readRgb(bag_file)
+    readRgb(bag_file)
     readKinectPos(bag_file)
     readKinectQuat(bag_file)
     
