@@ -1,0 +1,16 @@
+{
+    "python.jediEnabled": true,
+    "python.autoComplete.addBrackets": true,
+    "python.analysis.completeFunctionParens": true,
+    "python.linting.pylintArgs": [
+        "disable=print-statement",
+        "--extension-pkg-whitelist=cv2"
+    ],
+    "python.languageServer": "Pylance",
+    "python.autoComplete.extraPaths": [
+        "/usr/include/opencv2"
+        ],
+        "python.analysis.extraPaths": [
+            "/usr/include/opencv2"
+        ]
+}
