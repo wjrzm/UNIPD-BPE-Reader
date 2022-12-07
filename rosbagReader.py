@@ -19,6 +19,7 @@ def readRgb(bag_file):
     bag = rosbag.Bag(bag_file, "r")
     bridge = CvBridge()
     bag_data = bag.read_messages('/k01/rgb/image_rect/compressed')
+    
     for topic, msg, t in bag_data:
         cv_image = bridge.compressed_imgmsg_to_cv2(msg, "bgr8")
         cv2.imshow("Image window", cv_image)
